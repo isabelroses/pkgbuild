@@ -15,11 +15,9 @@ source=("https://github.com/lighttigerXIV/${_pkgname}/releases/download/${pkgver
 md5sums=('SKIP')
 
 build() {
-    unzip "Catppuccinifer-Linux-8.0.0.zip"
+    unzip -o "Catppuccinifer-Linux-${pkgver}.zip"
 }
 
 package() {
-	cd "$pkgname"
-	mkdir -p "$HOME/.local/share/${_pkgname}"
-	install -Dm755 "${srcdir}/installation-files/${_pkgname}" "$pkgdir/usr/bin/${_pkgname}"
+	install -Dm755 "${srcdir}/Catppuccinifer-Linux-${pkgver}/installation-files/${_pkgname}" "$pkgdir/usr/bin/${_pkgname}"
 }
