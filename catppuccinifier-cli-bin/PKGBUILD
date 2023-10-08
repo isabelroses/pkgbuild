@@ -1,0 +1,25 @@
+# Maintainer: Isabel <isabel@isabelroses.com>
+pkgname=catppuccinifier-cli-bin
+_pkgname=catppuccinifier
+pkgver=8.0.0
+pkgrel=1
+pkgdesc="An comand line tool to catppuccinifiy your images."
+arch=("x86_64")
+url="https://github.com/lighttigerXIV/catppuccinifier"
+license=()
+depends=()
+provides=('catppuccinifier')
+conflicts=('catppuccinifier')
+makedepends=('unzip')
+source=("https://github.com/lighttigerXIV/${_pkgname}/releases/download/${pkgver}/Catppuccinifer-Linux-${pkgver}.zip")
+md5sums=('SKIP')
+
+build() {
+    unzip "Catppuccinifer-Linux-8.0.0.zip"
+}
+
+package() {
+	cd "$pkgname"
+	mkdir -p "$HOME/.local/share/${_pkgname}"
+	install -Dm755 "${srcdir}/installation-files/${_pkgname}" "$pkgdir/usr/bin/${_pkgname}"
+}
