@@ -1,7 +1,7 @@
 # Maintainer: Isabel <isabel@isabelroses.com>
 pkgname=catppuccinifier-gui-bin
 _pkgname=catppuccinifier
-pkgver=8.0.0
+pkgver=8.0.0 # renovate: datasource=github-tags depName=lighttigerXIV/catppuccinifier
 pkgrel=1
 pkgdesc="An application to catppuccinifiy your images."
 arch=('x86_64')
@@ -15,15 +15,15 @@ source=("https://github.com/lighttigerXIV/${_pkgname}/releases/download/${pkgver
 md5sums=('SKIP')
 
 build() {
-    unzip -o "Catppuccinifer-Linux-${pkgver}.zip"
+	unzip -o "Catppuccinifer-Linux-${pkgver}.zip"
 }
 
 package() {
-    cd "${srcdir}/Catppuccinifer-Linux-${pkgver}/installation-files"
-    #desktop file
-    desktop-file-install -m 644 --dir "$pkgdir/usr/share/applications" "Catppuccinifier.desktop"
-    #binary
-    install -Dm755 "catppuccinifier-gui" "$pkgdir/usr/bin/catppuccinifier-gui"
-    #icon
-    install -Dm644 "catppuccinifier.png" "$pkgdir/usr/share/pixmaps/catppuccinifier.png"
+	cd "${srcdir}/Catppuccinifer-Linux-${pkgver}/installation-files"
+	#desktop file
+	desktop-file-install -m 644 --dir "$pkgdir/usr/share/applications" "Catppuccinifier.desktop"
+	#binary
+	install -Dm755 "catppuccinifier-gui" "$pkgdir/usr/bin/catppuccinifier-gui"
+	#icon
+	install -Dm644 "catppuccinifier.png" "$pkgdir/usr/share/pixmaps/catppuccinifier.png"
 }
