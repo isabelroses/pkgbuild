@@ -1,7 +1,7 @@
 # Maintainer: Isabel <isabel@isabelroses.com>
 pkgname=catppuccinifier-cli-git
 _pkgname=catppuccinifier
-pkgver=r62.6045183 # renovate: datasource=github-tags depName=lighttigerXIV/catppuccinifier
+pkgver=r15.2ab067b # renovate: datasource=github-tags depName=lighttigerXIV/catppuccinifier
 pkgrel=1
 pkgdesc="An comand line tool to catppuccinifiy your images."
 arch=('x86_64')
