@@ -8,6 +8,6 @@ pkgbase = catppuccinifier-cli-bin
 	provides = catppuccinifier
 	conflicts = catppuccinifier
 	source = https://github.com/lighttigerXIV/catppuccinifier/releases/download/8.0.0/Catppuccinifer-Linux-8.0.0.zip
-	md5sums = SKIP
+	md5sums = 7c58261230ce6ae1094d5f1ea14f8d0f
 
 pkgname = catppuccinifier-cli-bin

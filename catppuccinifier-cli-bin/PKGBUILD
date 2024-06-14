@@ -1,7 +1,7 @@
 # Maintainer: Isabel <isabel@isabelroses.com>
 pkgname=catppuccinifier-cli-bin
 _pkgname=catppuccinifier
-pkgver=8.0.0
+pkgver=8.0.0 # renovate: datasource=github-tags depName=lighttigerXIV/catppuccinifier
 pkgrel=1
 pkgdesc="An comand line tool to catppuccinifiy your images."
 arch=("x86_64")
@@ -12,7 +12,7 @@ provides=('catppuccinifier')
 conflicts=('catppuccinifier')
 makedepends=('unzip')
 source=("https://github.com/lighttigerXIV/${_pkgname}/releases/download/${pkgver}/Catppuccinifer-Linux-${pkgver}.zip")
-md5sums=('SKIP')
+md5sums=('7c58261230ce6ae1094d5f1ea14f8d0f')
 
 build() {
 	unzip -o "Catppuccinifer-Linux-${pkgver}.zip"
