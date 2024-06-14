@@ -1,34 +1,80 @@
-name: publish
+name: Publish to AUR
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
-      - '*/PKGBUILD'
+      - '**/PKGBUILD'
 
 jobs:
-  publish:
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      pkgbuilds: ${{ steps.matrix.outputs.pkgbuilds }}
+
     steps:
       - name: Checkout
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        uses: actions/checkout@v4.1.6
         with:
           fetch-depth: 0
 
-      - name: Find updated package
+      - name: Find updated packages and construct matrix
+        id: matrix
         run: |
           #!/usr/bin/env bash
           set -euxo pipefail
 
-          echo "pkgbuild=$(git diff --name-only HEAD HEAD~1 "*/.SRCINFO" | head -1 | xargs dirname)" >> $GITHUB_ENV
+          # Get all directories that have had edits made to their PKGBUILD or .SRCINFO in the last commit
+          dirs=$(git diff --name-only HEAD HEAD~1 "*/PKGBUILD" "*/.SRCINFO" | xargs dirname | sort | uniq)
+          # Convert dirs that have been changes to a JSON array
+          echo "pkgbuilds=$(printf '["%s"]' "$(echo "$dirs" | sed ':a;N;$!ba;s/\n/","/g')")" >> $GITHUB_OUTPUT
 
-      - name: Publish package
-        uses: KSXGitHub/github-actions-deploy-aur@2.7.1 # v2.7.1
-        if: ${{ env.pkgbuild != '' }}
+  publish:
+    runs-on: ubuntu-latest
+    needs: [ setup ]
+    strategy:
+      matrix:
+        pkgbuild: ${{fromJSON(needs.setup.outputs.pkgbuilds)}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.6
+
+      - name: Get pkgname
+        run: echo "pkgname=$(basename ${{ matrix.pkgbuild }})" >> $GITHUB_ENV
+
+      - name: Get additional assets
+        run: |
+          #!/usr/bin/env bash
+          set -euxo pipefail
+
+          assets_txt='${{ matrix.pkgbuild }}/assets.txt'
+          if [ ! -f $assets_txt ]; then
+            echo "assets=" >> $GITHUB_ENV
+          else
+            glob=$(cat "$assets_txt")
+            echo "assets=$(echo -n $glob)" >> $GITHUB_ENV
+          fi
+
+      - name: Publish packages without assets
+        uses: KSXGitHub/github-actions-deploy-aur@v2.7.1 # v2.7.1
+        if: ${{ matrix.pkgbuild != '' && env.assets == '' }}
         with:
-          pkgname: ${{ env.pkgbuild }}
-          pkgbuild: ${{ env.pkgbuild }}/PKGBUILD
+          pkgname: ${{ env.pkgname }}
+          pkgbuild: ${{ matrix.pkgbuild }}/PKGBUILD
+          commit_username: ${{ secrets.AUR_USERNAME }}
+          commit_email: ${{ secrets.AUR_EMAIL }}
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+
+      - name: Publish packages with assets
+        uses: KSXGitHub/github-actions-deploy-aur@v2.7.1 # v2.7.1
+        if: ${{ matrix.pkgbuild != '' && env.assets != '' }}
+        with:
+          pkgname: ${{ env.pkgname }}
+          assets: ${{ matrix.pkgbuild }}/${{ env.assets }}
+          pkgbuild: ${{ matrix.pkgbuild }}/PKGBUILD
           commit_username: ${{ secrets.AUR_USERNAME }}
           commit_email: ${{ secrets.AUR_EMAIL }}
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
