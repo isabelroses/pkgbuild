@@ -59,7 +59,7 @@ jobs:
           fi
 
       - name: Publish packages without assets
-        uses: KSXGitHub/github-actions-deploy-aur@v2.7.1 # v2.7.1
+        uses: KSXGitHub/github-actions-deploy-aur@f253a99125c1ca6bf2451d5a126fe04214d884bd # v2.7.1
         if: ${{ matrix.pkgbuild != '' && env.assets == '' }}
         with:
           pkgname: ${{ env.pkgname }}
@@ -69,7 +69,7 @@ jobs:
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
 
       - name: Publish packages with assets
-        uses: KSXGitHub/github-actions-deploy-aur@v2.7.1 # v2.7.1
+        uses: KSXGitHub/github-actions-deploy-aur@f253a99125c1ca6bf2451d5a126fe04214d884bd # v2.7.1
         if: ${{ matrix.pkgbuild != '' && env.assets != '' }}
         with:
           pkgname: ${{ env.pkgname }}
