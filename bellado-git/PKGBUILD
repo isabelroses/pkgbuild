@@ -1,7 +1,7 @@
 # Maintainer: Isabel <isabel@isabelroses.com>
 pkgname=bellado-git
 _pkgname=bellado
-pkgver=1.2.0
+pkgver=1.2.0 # renovate: datasource=github-tags depName=isabelroses/bellado
 pkgrel=1
 pkgdesc="A fast and once simple cli todo tool"
 arch=('x86_64')
