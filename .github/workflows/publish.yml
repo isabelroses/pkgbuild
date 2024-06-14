@@ -66,7 +66,7 @@ jobs:
           pkgbuild: ${{ matrix.pkgbuild }}/PKGBUILD
           commit_username: ${{ secrets.AUR_USERNAME }}
           commit_email: ${{ secrets.AUR_EMAIL }}
-          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          ssh_private_key: ${{ secrets.AUR_PRIVATE_SSH_KEY }}
 
       - name: Publish packages with assets
         uses: KSXGitHub/github-actions-deploy-aur@f253a99125c1ca6bf2451d5a126fe04214d884bd # v2.7.1
@@ -77,4 +77,4 @@ jobs:
           pkgbuild: ${{ matrix.pkgbuild }}/PKGBUILD
           commit_username: ${{ secrets.AUR_USERNAME }}
           commit_email: ${{ secrets.AUR_EMAIL }}
-          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          ssh_private_key: ${{ secrets.AUR_PRIVATE_SSH_KEY }}
