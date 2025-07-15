@@ -12,7 +12,7 @@ provides=('catppuccinifier')
 conflicts=('catppuccinifier')
 makedepends=('unzip')
 source=("https://github.com/lighttigerXIV/${_pkgname}/releases/download/${pkgver}/Catppuccinifer-Linux-${pkgver}.tar.xz")
-md5sums=('7c58261230ce6ae1094d5f1ea14f8d0f')
+md5sums=('4616926942c4800928fd81a88c1e77bf')
 
 build() {
   tar -xf "Catppuccinifer-Linux-${pkgver}.tar.xz"
