@@ -12,7 +12,7 @@ conflicts=('catppuccinifier-gui')
 depends=('cmake' 'libadwaita' 'webkit2gtk' 'base-devel' 'curl' 'wget' 'openssl' 'appmenu-gtk-module' 'gtk3' 'libappindicator-gtk3' 'librsvg' 'libvips')
 makedepends=('git')
 source=("https://github.com/lighttigerXIV/${_pkgname}/releases/download/${pkgver}/Catppuccinifer-Linux-${pkgver}.tar.xz")
-md5sums=('SKIP')
+md5sums=('4616926942c4800928fd81a88c1e77bf')
 
 build() {
   tar -xf "Catppuccinifer-Linux-${pkgver}.tar.xz"
